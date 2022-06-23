@@ -3,11 +3,28 @@ package com.lic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+@Entity(name="Customer")
+@Table(name="customer")
 public class Customer {
 
+    @Id
+    @SequenceGenerator(
+            name = "customer_sequence",
+            sequenceName = "customer_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_sequence"
+    )
+    @Column(
+            name = "id",
+            updatable = false
+    )
     private Long id;
     @NotBlank(message = "Name cannot be empty")
     private String name;
